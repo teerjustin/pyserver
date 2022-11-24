@@ -3,7 +3,7 @@ import certifi
 
 
 ca = certifi.where()
-
+DB_NAME = 'test'
 
 def get_database():
    print("in here")
@@ -14,7 +14,7 @@ def get_database():
    # client = MongoClient(CONNECTION_STRING)
    # Create the database for our example (we will use the same database throughout the tutorial
    print("This is client: ", client)
-   return client['test']
+   return client[DB_NAME]
   
 # This is added so that many files can reuse the function get_database()
 if __name__ == "__main__":   

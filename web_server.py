@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
+# from services import UserController
+import services.authentication.user_controller as uc
 
 app = Flask(__name__)
 
@@ -12,12 +14,16 @@ def index():
 
 @app.route("/login", methods = ["POST"])
 def login():
-
     username = request.json['user']
     password = request.json['password']
     print("THIS IS MY USER: ", username)
     print("THIS IS MY PASSWORD: ", password)
 
+    u = uc.UserController()
+
+    print('hi')
+    response = u.authenticate(username, password)
+    return response
     #
     if USER == username: 
         if PW == password:
@@ -39,6 +45,11 @@ def login():
     # else, 404
     # if username == USER: 
     #     print('username is == to user')
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    uc = uc.createUser()
+    return '200'
 
 
 @app.route("/healthcheck", methods=["GET"])
