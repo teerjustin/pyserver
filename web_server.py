@@ -14,22 +14,18 @@ def index():
 
 @app.route("/login", methods = ["POST"])
 def login():
-    username = request.json['user']
+    email = request.json['email']
     password = request.json['password']
-    print("THIS IS MY USER: ", username)
+    print("THIS IS MY USERS EMAIL: ", email)
     print("THIS IS MY PASSWORD: ", password)
 
     u = uc.UserController()
 
     print('hi')
-    response = u.authenticate(username, password)
+    response = u.authenticate(email, password)
     return response
-    #
-    if USER == username: 
-        if PW == password:
-            return { 'httpVers': 1.1, 'httpCode': 200, 'httpStatus': 'OK' }
-    return { 'httpVers': 1.1, 'httpCode': 404, 'httpStatus': 'NOT_FOUND' }
 
+    #
     # front end will hit this endpoint at localhost:port
     # 1. act as a ping
 
@@ -48,8 +44,15 @@ def login():
 
 @app.route("/signup", methods=["POST"])
 def signup():
-    uc = uc.createUser()
-    return '200'
+    u = uc.UserController()
+    email = request.json['email']
+    username = request.json['username']
+    password = request.json['password']
+    firstName = request.json['firstName']
+    lastName = request.json['lastName']
+    birthday = request.json['birthday']
+    response = u.signup(email, username, firstName, lastName, password, birthday)
+    return response
 
 
 @app.route("/healthcheck", methods=["GET"])

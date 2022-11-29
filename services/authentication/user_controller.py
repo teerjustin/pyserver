@@ -14,27 +14,41 @@ class UserController():
         self.db = users
         return  
 
-    def authenticate(self, username, password):
-        print(username, password)
-        u = User(username, password)
-        print(u.username, u.password)
-
-        if not self.db.find( {'username': u.username, 'password': u.password } ):
+    def authenticate(self, email, password):
+        print(email, password)
+        u = User(email, "", "", "", password, "")
+        print(u.email, u.password)
+        
+        userDocument = self.db.find_one( {'email': u.email, 'password': u.password } )
+        print("******* This is find_one: ", userDocument)
+        if userDocument == None:
             return {
                 'status_code': 400,
-                'message': "Username or Password valid"
-            }
+                'message': "Username or Password invalid"
+            }   
         #need to check if username in db
         #db.getUser(username, args)
         #check pw
         #if false return object statuscode 404
-
         return {
             'status_code': 200,
             'message': "Username & Password valid"
         }
 
     
-    def signup(self, username, first_name, last_name, password, email, birthday):
-        u = User(username, first_name, last_name, password, email, birthday)
-        
+    def signup(self, email, username, firstName, lastName, password, birthday):
+        print("IN SIGNUP FUNCTION:")
+        u = User(username, firstName, lastName, password, email, birthday)
+        userDocument = self.db.find_one( {'email': u.email})
+        if userDocument != None:
+            return {
+                'status_code': 400,
+                'message': "Email in use"
+            }
+        else:
+            self.db.insert_one({'email': email, 'username': username, 'firstName': firstName, 'lastName': lastName, 'password': password, 'birthday': birthday})
+        return {
+            'status_code': 201,
+            'message': "Created"
+        }
+            
