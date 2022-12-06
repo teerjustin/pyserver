@@ -35,7 +35,10 @@ def signup():
 @app.route("/healthcheck", methods=["GET"])
 def liveliness():
     print("SERVER IS RUNNING: ")
-    return '', 200
+    u = uc.UserController()
+    # u.get_all_users()
+
+    return u.get_all_users()
 
 
 if __name__ == "__main__":
