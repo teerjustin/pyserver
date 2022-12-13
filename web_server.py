@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 # from services import UserController
 import services.authentication.user_controller as uc
+import services.movies.movie_controller as mc
 
 app = Flask(__name__)
 
@@ -35,10 +36,10 @@ def signup():
 @app.route("/healthcheck", methods=["GET"])
 def liveliness():
     print("SERVER IS RUNNING: ")
-    u = uc.UserController()
-    # u.get_all_users()
+    m = mc.MovieController()
 
-    return u.get_all_users()
+    # m.read_movies()
+    return 'done'
 
 
 if __name__ == "__main__":
