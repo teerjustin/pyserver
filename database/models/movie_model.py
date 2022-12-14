@@ -1,4 +1,6 @@
 from ..init_db import get_database
+import json
+
 
 dbname = get_database()
 collection_name = dbname["movies"]
@@ -12,3 +14,7 @@ class Movie():
         self.imbd_score = imbd_score
         self.genre = genre
         self.poster = poster
+
+
+    def toJson(self):
+        return json.dumps(self, default=lambda o: o.__dict__)

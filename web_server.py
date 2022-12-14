@@ -33,13 +33,29 @@ def signup():
     return response
 
 
-@app.route("/healthcheck", methods=["GET"])
-def liveliness():
-    print("SERVER IS RUNNING: ")
+# @app.route("/healthcheck", methods=["GET"])
+# def liveliness():
+#     print("SERVER IS RUNNING: ")
+#     m = mc.MovieController()
+#     m.get_all_movies()
+#     return 'done'
+
+@app.route("/getmovies", methods=["GET"])
+def get_all_movies():
+    print("i am going to attempt to get all movies")
     m = mc.MovieController()
 
-    # m.read_movies()
-    return 'done'
+    return m.get_all_movies()
+
+@app.route("/getonemovie", methods=["GET"])
+def get_one_movies():
+    print("i am going to attempt to get ONE movie")
+    test = "114709"
+    test2 = "2"
+    m = mc.MovieController()
+    
+    return m.get_one_movie(test)
+
 
 
 if __name__ == "__main__":
