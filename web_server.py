@@ -34,11 +34,11 @@ def signup():
 
 @app.route("/healthcheck", methods=["GET"])
 def liveliness():
-    print("SERVER IS RUNNING: ")
-    u = uc.UserController()
-    # u.get_all_users()
-
-    return u.get_all_users()
+    print("health-check PING, server is alive!")
+    return {
+        "status_code": 200,
+        "data": "ding ding"
+    }
 
 
 if __name__ == "__main__":
