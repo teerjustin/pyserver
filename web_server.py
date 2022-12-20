@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 # from services import UserController
 import services.authentication.user_controller as uc
+import services.movies.movie_controller as mc
 
 app = Flask(__name__)
 
@@ -39,6 +40,24 @@ def liveliness():
         "status_code": 200,
         "data": "ding ding"
     }
+    
+
+@app.route("/getmovies", methods=["GET"])
+def get_all_movies():
+    print("i am going to attempt to get all movies")
+    m = mc.MovieController()
+
+    return m.get_all_movies()
+
+@app.route("/getonemovie", methods=["GET"])
+def get_one_movies():
+    print("i am going to attempt to get ONE movie")
+    test = "114709"
+    test2 = "2"
+    m = mc.MovieController()
+    
+    return m.get_one_movie(test)
+
 
 
 if __name__ == "__main__":
