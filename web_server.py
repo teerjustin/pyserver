@@ -33,12 +33,14 @@ def signup():
     return response
 
 
-# @app.route("/healthcheck", methods=["GET"])
-# def liveliness():
-#     print("SERVER IS RUNNING: ")
-#     m = mc.MovieController()
-#     m.get_all_movies()
-#     return 'done'
+@app.route("/healthcheck", methods=["GET"])
+def liveliness():
+    print("health-check PING, server is alive!")
+    return {
+        "status_code": 200,
+        "data": "ding ding"
+    }
+    
 
 @app.route("/getmovies", methods=["GET"])
 def get_all_movies():
